@@ -2,6 +2,8 @@ import React from 'react'
 import { Container, Typography, TextField, Button, Grid } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const validationSchema = Yup.object().shape({
@@ -19,8 +21,12 @@ const validationSchema = Yup.object().shape({
 
   
 export default function Registration() {
+    const notify = () => toast("Registration successful")
     const handleSubmit = (values) => {
-        // Handle submission logic here (e.g., API calls)
+        axios.post(`http://localhost:8080/api/users/register`,values).then((y) => {
+            console.log(y.data);
+            notify();
+          });
         console.log(values);
       };
 
